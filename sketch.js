@@ -2,11 +2,18 @@ var isize;
 var pi;
 var stats;
 var img;
-let nx, ny; // METHOD 2
+let nx, ny;
+let mode_checkbox;
 
 function preload() {}
 
 function setup() {
+	createCanvas(windowWidth, windowHeight);
+	mode_checkbox = createCheckbox('Random Fill', true);
+	mode_checkbox.position(width - 150, 5);
+	mode_checkbox.changed(function() {
+		reset();
+	})
 	reset();
 }
 
@@ -24,27 +31,32 @@ function reset() {
 		"in": 0,
 		"out": 0
 	};
-	nx = ny = -isize / 2; // METHOD 2
+	nx = ny = -isize / 2;
 	resizeCanvas(windowWidth, windowHeight);
 	background(220);
 }
 
 function draw() {
-	background(220); // METHOD 1
-	// for (let i = 0; i < 1000; i++) { // METHOD 2
-	// nx++; // METHOD 2
-	// if (nx == isize / 2) { // METHOD 2
-	// if (ny == isize / 2) { // METHOD 2
-	// drawDetails(); // METHOD 2
-	// noLoop(); // METHOD 2
-	// } // METHOD 2
-	// nx = -isize / 2; // METHOD 2
-	// ny++; // METHOD 2
-	// } // METHOD 2
-	// drawImage2(nx, ny); // METHOD 2
-	// } // METHOD 2
-	drawImage1(); // METHOD 1
-	drawDetails(); // METHOD 1
+	if (mode_checkbox.checked()) {
+		background(220); // METHOD 1
+	} else {
+		for (let i = 0; i < 1000; i++) { // METHOD 2
+			nx++; // METHOD 2
+			if (nx == isize / 2) { // METHOD 2
+				if (ny == isize / 2) { // METHOD 2
+					drawDetails(); // METHOD 2
+					noLoop(); // METHOD 2
+				} // METHOD 2
+				nx = -isize / 2; // METHOD 2
+				ny++; // METHOD 2
+			} // METHOD 2
+			drawImage2(nx, ny); // METHOD 2
+		} // METHOD 2
+	}
+	if (mode_checkbox.checked()) {
+		drawImage1(); // METHOD 1
+		drawDetails(); // METHOD 1
+	}
 }
 
 function drawImage1() {
